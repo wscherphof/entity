@@ -31,14 +31,14 @@
 			"revisionTime": "2016-10-08T20:46:33Z"
 		},
 		{
-			"checksumSHA1": "krYnwkN/d1PHaFUMZwOuXq0umjE=",
+			"checksumSHA1": "Ooa7czCOyL14R2vES1GsIthtneo=",
 			"origin": "github.com/wscherphof/rethinkdb/vendor/github.com/wscherphof/env",
 			"path": "github.com/wscherphof/env",
 			"revision": "cc8ae4d9daa85517d3e818200d565d7360c3492f",
 			"revisionTime": "2016-10-08T20:46:33Z"
 		},
 		{
-			"checksumSHA1": "1jIGn2naCCtg9/hPQxNt9Yw+IoU=",
+			"checksumSHA1": "PflaVA4ML45Ypa3FsGorX2Pv9FQ=",
 			"path": "github.com/wscherphof/rethinkdb",
 			"revision": "cc8ae4d9daa85517d3e818200d565d7360c3492f",
 			"revisionTime": "2016-10-08T20:46:33Z"
