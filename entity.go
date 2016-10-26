@@ -49,26 +49,20 @@ import (
 )
 
 var (
-	/*
-		Session provides low level access to the RethinkDB session.
-	*/
+	
+	// Session provides low level access to the RethinkDB session.
 	Session = db.Session
 
-	/*
-		DB provides low level access to the RethinkDB database.
-	*/
+	
+	// DB provides low level access to the RethinkDB database.
 	DB = db.DB
 
-	/*
-		ErrEmptyResult is returned from read operations if no record was found.
-	*/
+	// ErrEmptyResult is returned from read operations if no record was found.
 	ErrEmptyResult = db.ErrEmptyResult
-
-	/*
-		ErrDuplcatePrimaryKey is retuned from Create if a record with the same ID
-		already exists.
-	*/
-	ErrDuplicatePrimaryKey = errors.New("ErrDuplicatePrimaryKey")
+	
+	// ErrDuplcatePrimaryKey is retuned from Create if a record with the same ID
+	// already exists.
+		ErrDuplicatePrimaryKey = errors.New("ErrDuplicatePrimaryKey")
 )
 
 func init() {
@@ -92,6 +86,7 @@ If the table to use is not present in the database, it creates the table.
 If creating the table fails, it logs the error, and panics.
 
 Call Index() on the result to ensure a secondary index for a field.
+Call Index() on the result of Index() for another index on the same table.
 */
 func Register(record interface{}, table ...string) (ret *TableType) {
 	tpe := getType(record)
@@ -144,20 +139,15 @@ func getType(record interface{}) string {
 Base is the base type to embed in business objects.
 */
 type Base struct {
-	/*
-	   ID is the database record ID. If empty, the database generates a unique value
-	   for it.
-	*/
+	
+	// ID is the database record ID. If empty, the database generates a unique value
+	// for it.
 	ID string `gorethink:"id,omitempty"`
 
-	/*
-	   Created holds the time when the record was first created in the database.
-	*/
+	// Created holds the time when the record was first created in the database.
 	Created time.Time
 
-	/*
-	   Modified holds the time when the record was last modified in the database.
-	*/
+	// Modified holds the time when the record was last modified in the database.
 	Modified time.Time
 }
 
