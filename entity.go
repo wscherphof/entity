@@ -49,20 +49,19 @@ import (
 )
 
 var (
-	
+
 	// Session provides low level access to the RethinkDB session.
 	Session = db.Session
 
-	
 	// DB provides low level access to the RethinkDB database.
 	DB = db.DB
 
 	// ErrEmptyResult is returned from read operations if no record was found.
 	ErrEmptyResult = db.ErrEmptyResult
-	
+
 	// ErrDuplcatePrimaryKey is retuned from Create if a record with the same ID
 	// already exists.
-		ErrDuplicatePrimaryKey = errors.New("ErrDuplicatePrimaryKey")
+	ErrDuplicatePrimaryKey = errors.New("ErrDuplicatePrimaryKey")
 )
 
 func init() {
@@ -145,7 +144,7 @@ func getType(record interface{}) string {
 Base is the base type to embed in business objects.
 */
 type Base struct {
-	
+
 	// ID is the database record ID. If empty, the database generates a unique value
 	// for it.
 	ID string `gorethink:"id,omitempty"`
