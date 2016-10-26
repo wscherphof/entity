@@ -118,6 +118,12 @@ type TableType struct {
 /*
 Index ensures a secondary database index on the given column.
 	entity.Register(&Bus{}).Index("Foo")
+or
+	entity.Register(&Bus{}).Index("Foo").Index("Bar")
+
+Later, call entity.Index() for an IndexType value:
+	busFooIndex := entity.Index(&bus{}, "Foo")
+	busBarIndex := entity.Index(&bus{}, "Bar")
 */
 func (t *TableType) Index(column string) *TableType {
 	if _, err := db.IndexCreate(t.name, column); err != nil {
