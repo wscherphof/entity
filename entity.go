@@ -279,6 +279,23 @@ func (i *IndexType) Read(value, result interface{}) (err error, empty bool) {
 }
 
 /*
+Count counts the record from the database, with the given value for this index's
+column.
+It sets empty to true, if the error is that a record with that value doesn't
+exist.
+	var num *int
+	if err, empty := busFooIndex.Count(1, num); err == nil {
+		// doSomethingWith(num)
+	}
+*/
+func (i *IndexType) Count(value, result interface{}) (err error, empty bool) {
+	if err = db.CountIndex(i.table, i.column, value, result); err == db.ErrEmptyResult {
+		err, empty = ErrEmptyResult, true
+	}
+	return
+}
+
+/*
 Between filters the index's table on low & high limits for the value of the
 index's column. It returns a Term holding the selected records.
 	fooOne := busFooIndex.Between(0, false, 2, false)

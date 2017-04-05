@@ -81,6 +81,11 @@ func GetIndex(table, index string, value, result interface{}) error {
 	return one(cursor, err, result)
 }
 
+func CountIndex(table, index string, value, result interface{}) error {
+	cursor, err := r.DB(DB).Table(table).GetAllByIndex(index, value).Count().Run(Session)
+	return one(cursor, err, result)
+}
+
 func One(table string, result interface{}) error {
 	cursor, err := r.DB(DB).Table(table).Run(Session)
 	return one(cursor, err, result)
