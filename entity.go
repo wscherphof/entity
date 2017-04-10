@@ -120,9 +120,10 @@ Index ensures a secondary database index on the given column.
 or
 	entity.Register(&Bus{}).Index("Foo").Index("Bar")
 
-Later, call entity.Index() for an IndexType value:
-	busFooIndex := entity.Index(&bus{}, "Foo")
-	busBarIndex := entity.Index(&bus{}, "Bar")
+Later, call Base.Index() for an IndexType value:
+	bus := initBus()
+	busFooIndex := bus.Index(bus, "Foo")
+	busBarIndex := bus.Index(bus, "Bar")
 */
 func (t *TableType) Index(column string) *TableType {
 	if _, err := db.IndexCreate(t.name, column); err != nil {
@@ -255,9 +256,10 @@ Index returns the IndexType for the given record's table & column. Create
 indexes by calling Index() on the result of Register()
 	entity.Register(&Bus{}).Index("Foo")
 	...
-	busFooIndex := entity.Index(&bus{}, "Foo")
+	bus := initBus()
+	busFooIndex := bus.Index(bus, "Foo")
 */
-func Index(record interface{}, column string) *IndexType {
+func (b *Base) Index(record interface{}, column string) *IndexType {
 	return &IndexType{tbl(record), column}
 }
 
@@ -279,8 +281,8 @@ func (i *IndexType) Read(value, result interface{}) (err error, empty bool) {
 }
 
 /*
-Count counts the record from the database, with the given value for this index's
-column.
+Count counts the records from the database, with the given value for this
+index's column.
 It sets empty to true, if the error is that a record with that value doesn't
 exist.
 	var num *int
@@ -304,6 +306,15 @@ value.
 */
 func (i *IndexType) Between(low interface{}, includeLow bool, high interface{}, includeHigh bool) Term {
 	return Term(db.Between(i.table, i.column, low, includeLow, high, includeHigh))
+}
+
+/*
+Skip cuts off the table's first (or last) n records, when ordered by this index.
+Direction "asc" (default) cuts off the first n records;
+Direction "desc" cuts off the last n records.
+*/
+func (i *IndexType) Skip(n int, opt_direction ...string) Term {
+	return Term(db.Skip(i.table, i.column, n, opt_direction...))
 }
 
 /*

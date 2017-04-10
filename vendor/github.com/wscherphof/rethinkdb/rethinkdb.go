@@ -134,6 +134,17 @@ func Between(table, index string, low interface{}, includeLow bool, high interfa
 	return Term{Term: &term}
 }
 
+func Skip(table, index string, n int, opt_direction ...string) Term {
+	orderByOpts := r.OrderByOpts{
+		Index:  index, // "asc"
+	}
+	if len(opt_direction) == 1 && opt_direction[0] == "desc" {
+		orderByOpts.Index = r.Desc(index)
+	}
+	term := r.DB(DB).Table(table).OrderBy(orderByOpts).Skip(n)
+	return Term{Term: &term}
+}
+
 func DeleteTerm(term Term) (r.WriteResponse, error) {
 	return term.Delete().RunWrite(Session)
 }
